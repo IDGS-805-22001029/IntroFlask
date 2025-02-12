@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{%block container %}
+            
+
+<form  method="post">
+
+    <lable>N1:</lable>
+    <input type="text" name="n1"><br>
+    <lable>N2:</lable>
+    <input type="text" name="n2"><br>
+    <select name="op">
+        <option value="*">Multiplicación</option>
+        <option value="+">Suma</option>
+        <option value="-">Resta</option>
+        <option value="/">División</option>
+      </select><br>
+    <input type="submit" value="Calcular">
+
+    <label>Resultado: {{resultado}}</label>
+</form>
+
+{%endblock%}

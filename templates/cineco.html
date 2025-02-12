@@ -1,0 +1,95 @@
+{% block container %}
+<style>
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #FFFFFF;
+        padding: 100px
+    }
+
+    .form-container form {
+        background-color: #0055a0;
+        padding: 50px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container label {
+        display: block;
+
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="radio"] {
+        margin-bottom: 15px;
+    }
+
+    .form-container .radio-group {
+        display: flex;
+        align-items: center;
+    }
+
+    .form-container .radio-group label {
+        margin-left: 5px;
+        margin-right: 15px;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #032B44;
+        padding: 100px
+    }
+</style>
+
+<div class="form-container container">
+    <form method="post">
+        <h1>Entradas</h1>
+        <label>Nombre</label><br>
+        <input type="text" name="nombre"><br>
+        <label>Cantidad Compradores</label>
+        <input type="number" name="cantidad_p"><br>
+        <label>Tarjeta Cineco</label>
+        <div class="radio-group">
+            <input type="radio" id="si" name="tarjeta_si" value="true" onclick="toggleRadio('tarjeta_si')">
+            <label for="si">Sí</label>
+            <input type="radio" id="no" name="tarjeta_no" value="false" onclick="toggleRadio('tarjeta_no')">
+            <label for="no">No</label>
+        </div>
+        <label>cantidad de boletos</label>
+        <input type="number" name="cantidad_b"><br>
+        <div>
+            {% if error %}
+            <div>{{error}}</div>
+            {%endif%}
+        </div>
+        <div style="margin-top: 20px;">
+            <input type="submit" value="Calcular">
+            <input type="reset" value="Limpiar">
+            <input type="button" value="Salir" onclick="window.location.href='/'">
+        </div>
+    </form>
+    <div class="form-container container">
+        <form>
+            <h1>Salidad</h1>
+            <label>Valor a pagar</label>
+            <input type="text" name="valor" value="{{valor}}" disabled><br>
+        </form>
+    </div>
+</div>
+
+<script>
+    function toggleRadio(selectedRadio) {
+        const radios = document.querySelectorAll('input[type="radio"]');
+        radios.forEach(radio => {
+            if (radio.name !== selectedRadio) {
+                radio.checked = false;
+            }
+        });
+    }
+</script>
+{% endblock %}
