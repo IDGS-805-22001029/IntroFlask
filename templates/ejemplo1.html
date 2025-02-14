@@ -1,11 +1,10 @@
 {% extends "layout.html" %}
 
 {%block container %}
-            <h1>Ejemplo1</h1>
-            
-            <h1>{{titulo}}</h1>
+{%import "_macros.html" as macro%}
+<h1>Ejemplo1</h1>
+macro.datos("Nombre", "Nombre")
+{{macro.datos("Nombre", "Nombre")}}
+{{macro.datos("Nombre", "password", "password")}}
 
-            {%for value in lista %}
-            <h3>{{value}}</h3>
-            {%endfor%}
 {%endblock%}

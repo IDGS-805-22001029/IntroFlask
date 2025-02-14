@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from cine import cliente
+import forms
 
 app = Flask(__name__)
 
@@ -93,6 +94,21 @@ def cineco():
         return render_template("cineco.html", valor=valor)
     
     return render_template("cineco.html")
+
+@app.route("/alumnos", methods=["GET","POST"])
+def alumnos():
+    matr=''
+    nom = ''
+    ape=''
+    email=''
+    alumno_clase = forms.UseForm(request.form)
+    if request.method == "POST":
+        matr = alumno_clase.matricula.data
+        nom = alumno_clase.nombre.data
+        ape = alumno_clase.apellido.data
+        email = alumno_clase.email.data
+        print('Nombre: {}'.fotmat(nom))
+    return render_template("alumnos.html", form= alumno_clase)
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000)
