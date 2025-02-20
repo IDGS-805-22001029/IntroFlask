@@ -3,15 +3,54 @@
 {%block container %}
 {%import "_macros.html" as macros%}
 
-<div>
+<div class=" col-12 d-flex justify-content-center align-items-center">
     <h1>Alumnos</h1>
-    <form>
-        {{macros.campoNuevo(form.matricula)}}
-        {{macros.campoNuevo(form.nombre)}}
-        {{macros.campoNuevo(form.apellido)}}
-        {{macros.campoNuevo(form.email)}}
-    
+
+    <form action="" method="post" novalidate>
+        <div class="row control-group">
+            <div class="form-groupform-group col-xs-12 floating-label-form-group controls">
+
+                {{macros.campoNuevo(form.matricula, class='form-control')}}
+            </div>
+        </div>
+        <div class="row control-group">
+            <div class="form-groupform-group col-xs-12 floating-label-form-group controls">
+
+                {{macros.campoNuevo(form.nombre, class='form-control')}}
+            </div>
+        </div>
+        <div class="row control-group">
+            <div class="form-groupform-group col-xs-12 floating-label-form-group controls">
+
+                {{macros.campoNuevo(form.apellido, class='form-control')}}
+            </div>
+        </div>
+        <div class="row control-group">
+            <div class="form-groupform-group col-xs-12 floating-label-form-group controls">
+
+                {{macros.campoNuevo(form.email, class='form-control')}}
+            </div>
+        </div>
+
+        <input type="submit" value="Guardar" class="btn btn-primary" />
+        <input type="submit" onclick="Refresh()" value="Refrescar" class="btn" />
+        <script>
+            function Refresh() {
+                document.getElementById("matricula").value = "";
+                document.getElementById("nombre").value= "";
+                document.getElementById("apellido").value = "";
+                document.getElementById("email").value = "";
+
+                matr = "";
+                nom = "";
+                email = "";
+            }
+        </script>
     </form>
+
+    <h2>Matricula: {{matr}}</h2>
+    <h2>Nombre: {{nom}}</h2>
+    <h2>Correo: {{email}}</h2>
 </div>
 
 {%endblock%}

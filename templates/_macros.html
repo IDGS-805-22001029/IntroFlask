@@ -8,4 +8,31 @@
 {%macro campoNuevo (field)%}
 <td>{{field.label}}</td>
 <dd>{{field(**kwargs) | safe}}</dd>
+{%if field.errors %}
+    <ul>
+        {%for error in field.errors %}
+            <li style="color: red">{{error}}</li>
+        {%endfor%}
+    </ul>
+    
+{%endif%}
 {%endmacro%}
+
+{% macro render_radio_field(field) %}
+<div class="form-group">
+    {{ field.label(class="form-label") }}
+    {% for subfield in field %}
+        <div class="form-check">
+            {{ subfield(class="form-check-input") }}
+            {{ subfield.label(class="form-check-label") }}
+        </div>
+    {% endfor %}
+    {% if field.errors %}
+        <div class="alert alert-danger">
+            {% for error in field.errors %}
+                <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endmacro %}
