@@ -1,13 +1,34 @@
 from flask import Flask, render_template, request
-from cine import cliente
+from flask import g
+from flask import flash
 import forms
+
+
+from cine import cliente
 from forms import ZodiacoForm
 from datetime import datetime 
+
 
 
 app = Flask(__name__)
 
 app.secret_key='1234'
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
+
+
+@app.before_request
+def before_request():
+    g.nombre="Juan"
+    print("Before 1")
+
+@app.after_request
+def after_request(response):
+    print("After 1")
+    return response
+
 
 @app.route('/')
 def index():
@@ -106,13 +127,16 @@ def alumnos():
     nom = ''
     ape=''
     email=''
+    csrf_token = app.secret_key
     alumno_clase = forms.UseForm(request.form)
     if request.method == "POST" and alumno_clase.validate():
         matr = alumno_clase.matricula.data
         nom = alumno_clase.nombre.data
         ape = alumno_clase.apellido.data
         email = alumno_clase.email.data
-    return render_template("alumnos.html", form= alumno_clase, matr=matr, nom=nom, ape=ape, email=email)
+        mensaje='Bienvenido {}'.format(nom)
+        flash(mensaje)
+    return render_template("alumnos.html", form= alumno_clase, matr=matr, nom=nom, ape=ape, email=email, csrf_token=csrf_token)
 
 
 @app.route("/zodiaco", methods=["GET", "POST"])
